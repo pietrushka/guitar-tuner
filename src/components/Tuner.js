@@ -6,7 +6,7 @@ import {stringFreqs, freqAccuracy} from '../utils'
 
 export default function Tuner ({frequency, string}) {
   const [swing, setSwing] = useState(null)
-
+  console.log(frequency)
   useEffect(() => {
     const calcSwing = () => {
       const correctFreq = stringFreqs[string]
@@ -17,7 +17,7 @@ export default function Tuner ({frequency, string}) {
       if (freqDifference > freqAccuracy.terrible || frequency === 0) {
         newSwing = null
       } else {
-        newSwing = freqDifference 
+        newSwing = freqDifference / 2
       }
       return newSwing
     }
@@ -43,13 +43,14 @@ const TunerCoontainer = styled.div`
 `
 
 const Circle = styled.div`
+  font-size: 2rem;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  width: 10rem;
-  height: 10rem;
+  width: 5em;
+  height: 5em;
   border-radius: 50%;
   border: 3px solid black;
 

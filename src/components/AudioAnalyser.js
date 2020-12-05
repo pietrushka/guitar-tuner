@@ -1,5 +1,6 @@
 import {useEffect, useState, useRef} from 'react'
 import { autoCorrelate } from '../utils'
+import StringChooser from './StringChooser'
 import Tuner from './Tuner'
 
 export default function AudioAnalyser ({audio}) {
@@ -32,6 +33,9 @@ export default function AudioAnalyser ({audio}) {
 
 
   return (
-    <Tuner frequency={frequency} string={string} />
+    <>
+      <Tuner frequency={frequency} string={string} />
+      <StringChooser setString={setString} />
+    </>
   )
 }
