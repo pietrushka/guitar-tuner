@@ -44,3 +44,18 @@ export const autoCorrelate = ( buf, sampleRate ) => {
 
 	return sampleRate/T0;
 }
+
+export const stringFreqs = {
+	E4: 330,
+	B3: 247,
+	G3: 196,
+	D3: 147,
+	A2: 110,
+	E2: 82
+}
+
+export const freqAccuracy = {
+	good: 5,
+	bad: 15,
+	terrible: 50
+}

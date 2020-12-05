@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-
-import AudioAnalyser from './AudioAnalyser';
+import React, {useEffect, useState} from 'react'
+import styled from '@emotion/styled'
+import AudioAnalyser from './components/AudioAnalyser'
 
 function App() {
   const [audio, setAudio] = useState(null)
@@ -9,7 +9,7 @@ function App() {
     const getAudio = async () => {
       navigator.getUserMedia = navigator.getUserMedia
         || navigator.webkitGetUserMedia
-        || navigator.mozGetUserMedia;
+        || navigator.mozGetUserMedia
       const source =  await navigator.mediaDevices.getUserMedia({ video: false, audio: true })
 
       setAudio(source)
@@ -19,12 +19,17 @@ function App() {
   }, [])
 
   return (
-    <>
-      {
-        audio ? <AudioAnalyser audio={audio} /> : 'There is no audio'
-      }
-    </>
+      <AppContainer>
+        {
+          audio ? <AudioAnalyser audio={audio} /> : 'There is no audio'
+        }
+      </AppContainer>
   )
 }
   
-export default App;
+export default App
+
+const AppContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+`

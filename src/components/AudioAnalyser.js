@@ -1,13 +1,15 @@
-import {useEffect, useState, useRef} from 'react';
-import { autoCorrelate } from './utils';
+import {useEffect, useState, useRef} from 'react'
+import { autoCorrelate } from '../utils'
+import Tuner from './Tuner'
 
 export default function AudioAnalyser ({audio}) {
   const [frequency, setFrequency] = useState()
-  const requestRef = useRef();
+  const [string, setString] = useState('E4')
+  const requestRef = useRef()
 
   useEffect(() => {
     const audioCtx = new AudioContext()
-    const analyser = audioCtx.createAnalyser();
+    const analyser = audioCtx.createAnalyser()
     const source = audioCtx.createMediaStreamSource(audio)
     source.connect(analyser)
 
@@ -30,8 +32,6 @@ export default function AudioAnalyser ({audio}) {
 
 
   return (
-    <>
-      <p>Frequency: {frequency} Hz</p>
-    </>
+    <Tuner frequency={frequency} string={string} />
   )
 }
