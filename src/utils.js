@@ -1,5 +1,13 @@
-//PitchDetect repository - https://github.com/cwilso/PitchDetect
+export const getAudio = async () => {
+	navigator.getUserMedia = navigator.getUserMedia
+	|| navigator.webkitGetUserMedia
+	|| navigator.mozGetUserMedia
+	const audio =  await navigator.mediaDevices.getUserMedia({ video: false, audio: true })
+	
+	return audio
+}
 
+//PitchDetect repository - https://github.com/cwilso/PitchDetect
 export const autoCorrelate = ( buf, sampleRate ) => {
 	// Implements the ACF2+ algorithm
 	let SIZE = buf.length;
@@ -55,7 +63,7 @@ export const stringFreqs = {
 }
 
 export const freqAccuracy = {
-	good: 5,
-	bad: 15,
+	good: 10,
+	bad: 30,
 	terrible: 50
 }

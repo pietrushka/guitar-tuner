@@ -6,19 +6,26 @@ import {stringFreqs, freqAccuracy} from '../utils'
 
 export default function Tuner ({frequency, string}) {
   const [swing, setSwing] = useState(null)
-  console.log(frequency)
+  const [accuracyColor, setAccuracyColor] = useState(null)
+
   useEffect(() => {
     const calcSwing = () => {
       const correctFreq = stringFreqs[string]
-      const freqDifference = Math.abs(frequency - correctFreq)
+      const freqDifference = frequency - correctFreq
+      const absoluteDiff = Math.abs(freqDifference)
 
-      let newSwing
+      let newSwing = freqDifference * 2.5  
 
-      if (freqDifference > freqAccuracy.terrible || frequency === 0) {
-        newSwing = null
+      if (absoluteDiff > freqAccuracy.terrible || frequency === 0) {
+        return newSwing = null
+      } else if (absoluteDiff > freqAccuracy.bad) {
+        setAccuracyColor('red')
+      } else if (absoluteDiff > freqAccuracy.good) {
+        setAccuracyColor('yellow')
       } else {
-        newSwing = freqDifference / 2
+        setAccuracyColor('green')
       }
+      
       return newSwing
     }
 
@@ -28,7 +35,7 @@ export default function Tuner ({frequency, string}) {
 
   return (
     <TunerCoontainer>
-      <Circle swing={swing}>
+      <Circle swing={swing} accuracyColor={accuracyColor}>
         <StringID>{string}</StringID>
       </Circle>
     </TunerCoontainer>
@@ -40,6 +47,7 @@ const TunerCoontainer = styled.div`
   top: 50%;
   transform: translateY(-50%);
   width: 100%;
+  overflow: hidden;
 `
 
 const Circle = styled.div`
@@ -55,7 +63,7 @@ const Circle = styled.div`
   border: 3px solid black;
 
 
-  ${({swing}) => swing && css`
+  ${({swing, accuracyColor}) => swing && css`
     &::before {
       position: absolute;
       display: block;
@@ -64,7 +72,7 @@ const Circle = styled.div`
       width: 10rem;
       height: 10rem;
       border-radius: 50%;
-      background: red;
+      background: ${accuracyColor};
     }
   `}
 `
